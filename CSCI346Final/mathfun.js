@@ -86,7 +86,7 @@ function generateMountain() {
 
     var colors = [];
     for (var i = 0; i < what; i++) {
-        //colors.push(vec4(0.8, .6, 0, 1));
+        colors.push(vec4(0.8, .6, 0, 1));
         colors.push(vec4(Math.random() * .64, 0, Math.random(), 1));
         colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
 

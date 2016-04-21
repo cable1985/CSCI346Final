@@ -2,19 +2,18 @@
 /**
  * 
  * @author:  Edward Angel
- * Modified by Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
+ * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
+ * 
  */
 
+var draw;
 var gl;
-var red = 1;
-var green = 0;
-var blue = 0;
 var xAxis = 0; //used as a subscript in theta array
 var yAxis = 1; //used as a subscript in theta array
 var zAxis = 2; //used as a subscript in theta array
+var n = 100, m =100;
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
-var randomy = [Math.random() * .5  - 0.5, Math.random() * .5  - 0.25, Math.random() * .2  - 0.5];
 var thetaLoc;
 var elementCount; //number of indices
 
@@ -30,77 +29,84 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var cube = genDeltoid();
-    
+    var shape = generateMountain();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
+
+
+    //event listeners for buttons    
+    document.getElementById("xButton").onclick = function () {
+        axis = xAxis;
+
+    };
+    document.getElementById("yButton").onclick = function () {
+        axis = yAxis;
+
+    };
+    document.getElementById("zButton").onclick = function () {
+        axis = zAxis;
+
+    };
+    
+      
+        drawMountain(gl, program, shape, axis);
    
     
-  
-    //event listeners for buttons    
-    document.getElementById( "xButton" ).onclick = function () {
-        axis = xAxis; 
-        
-    };
-    document.getElementById( "yButton" ).onclick = function () {
-        axis = yAxis;
-        
-    };
+    //drawMountain(gl, program, shape, axis);
+}//CanvasMain
+
     
-    document.getElementById( "zButton" ).onclick = function () {
-        axis = zAxis;   
-    };
-  
-    drawObject(gl, program, cube, axis);
-    
+
+function generateMountain() {
+   
+    var vertices = [];
+    for (var i = 0; i < n + 1; i++) {
+        for (var j = 0; j < m + 1; j++) {
+            var x = (1.6 * i / n) - .8;
+            var z = (1.6 * j / m) - .8;
+            var b = (6 * j / m) - 3;
+            var a = (6 * i / n) - 3;
+            vertices.push(vec4(x, .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2))), z, 1));
+            //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
+            //or this one .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2)
+            
+            //.2*Math.sin(a*b)
+            //
+
+        }
+    }
+
+    var what = (n + 1) * m;
+    var indices = [];
+    for (var i = 0; i < what - 1; i++) {
+        if (i % (n + 1) !== n) {
+            indices.push(i, i + 1, i + (m + 2), i, i + (m + 2), i + (m + 1));
+        }
+    }
+
+    var colors = [];
+    for (var i = 0; i < what; i++) {
+        //colors.push(vec4(0.8, .6, 0, 1));
+        colors.push(vec4(Math.random() * .64, 0, Math.random(), 1));
+        colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
+
+    }
+
+
+
+
+    //example of an object in java script 
+    var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
+
+
+    return shape;
 }
 
 
-function genDeltoid() {
-
-    var pointCount = 150;
-    var shapeVertices = [];
-    var inc = 2 * Math.PI / pointCount;
-    var r = 0.5;
-    //x	=	sqrt(r^2-u^2)cos(theta)
-    //y	=	sqrt(r^2-u^2)sin(theta)
+function drawMountain(gl, program, obj, viewAxis) {
     
-    for (var theta = 0; theta < 2 * Math.PI; theta += inc) {
-        for(r=-r;r<.5;r+= 0.01){
-            var u = r*Math.cos(theta);
-            var x = Math.sqrt((Math.pow(r,2)-Math.pow(u,2)))*Math.cos(theta);
-            var y = Math.sqrt((Math.pow(r,2)-Math.pow(u,2)))*Math.sin(theta);
-        
-            var z = u;
-            shapeVertices.push(vec4(x,y,z,1));
-         }
-    }
-
-    var indices = [];
-    for(var i = 0; i < pointCount;i++){
-       indices.push(i);
-    }
-   
-    
-    var colors = [];
-    for (var i = 0; i < pointCount; i++) {
-        
-        colors.push(vec4(1, .4, .8, 1));
-        colors.push(vec4(Math.random() * .64, .125, Math.random()*.4, 1));
-        colors.push(vec4(Math.random() * .34, .063, Math.random() * 8, 1));
-        
-    }
-            
-    //example of an object in java script 
-    var cube = {shapeVertices: shapeVertices, indices: indices, colors: colors, primtype: gl.POINTS};
-    
-
-    return cube;
-}//generateShape
-
- 
-function drawObject(gl, program, obj, viewAxis) {
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    //Background 
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -113,7 +119,7 @@ function drawObject(gl, program, obj, viewAxis) {
     var iBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
-  
+
     // color array atrribute buffer
 
     var cBuffer = gl.createBuffer();
@@ -128,7 +134,7 @@ function drawObject(gl, program, obj, viewAxis) {
 
     var vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(obj.shapeVertices), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(obj.vertices), gl.STATIC_DRAW);
 
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 0, 0);
@@ -136,21 +142,22 @@ function drawObject(gl, program, obj, viewAxis) {
 
     thetaLoc = gl.getUniformLocation(program, "theta");
     axis = viewAxis;
-    elementCount = obj.indices.length;
+    elementCount = obj.indices.length/2;
+    elementCount2 = obj.indices.length;
     
-    
+
     render();
-   
+
 }//drawObject
 
 function render()
 {
-    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    
     theta[axis] += 0.5;  //rotate by 2degrees
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
     gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-  
-    requestAnimFrame( render );  
+    gl.drawElements(gl.POINTS, elementCount2, gl.UNSIGNED_SHORT, 0);
+    requestAnimFrame(render);
 }

@@ -2,7 +2,7 @@
 /**
  * 
  * @author:  Edward Angel
- * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
+ * Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * 
  */
 

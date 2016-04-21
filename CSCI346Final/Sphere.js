@@ -2,10 +2,7 @@
 /**
  * 
  * @author:  Edward Angel
- * Modified by Marietta E. Cameron, David Cable
- * Last Modified: 2-22-2016
- * 
- * Draws a Color Cube on screen
+ * Modified by Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  */
 
 var gl;

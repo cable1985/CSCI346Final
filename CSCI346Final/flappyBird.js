@@ -5,7 +5,7 @@
  * Modified by Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * this is our rendition of FlappyBird; the original flappy bird game was created by Dong Nguyen
  */
-
+var flag = true;
 var gl;
 var green = 0;
 var blue = 0;
@@ -30,7 +30,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var cube = genBird();
+    var bird = genBird();
     
 
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -50,8 +50,9 @@ function canvasMain() {
     document.getElementById( "zButton" ).onclick = function () {
         axis = zAxis;   
     };
+    document.getElementById("Pause").onclick = function(){flag = !flag;};
   
-    drawObject(gl, program, cube, axis);
+    drawObject(gl, program, bird, axis);
     
 }
 
@@ -1330,12 +1331,12 @@ vec4(0.1,0.1,0.1,1)
     
     
      
-    //example of an object in java script 
+    
     var cube = {flappyVertices: flappyVertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
     
 
     return cube;
-}//generateShape
+}//generate FLappy Bird
 
  
 function drawObject(gl, program, obj, viewAxis) {
@@ -1385,7 +1386,7 @@ function render()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    theta[axis] += 0.5;  //rotate by 2degrees
+    if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
     gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
     requestAnimFrame( render );  

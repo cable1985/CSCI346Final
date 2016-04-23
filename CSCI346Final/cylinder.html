@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script id="vertex-shader" type="x-shader/x-vertex">
+        <script id="vertex-shader" type="x-shader/x-vertex">
 
 attribute  vec4 vPosition;
 attribute  vec4 vColor;
@@ -78,7 +78,16 @@ main()
     <body onload="canvasMain()">
         <div>
             
-            <canvas id="gl-canvas" width="512" height="512" >
+          <h1 style="font-size:50px;
+                       text-shadow: -1px -1px 0px #000,
+                       1px 1px 0px #000,
+                       2px 2px 0px #000,
+                       -2px -2px 0px #000;
+                       color:#FFA500;
+                       font-family:Verdana, Geneva, sans-serif;text-align:left"
+                       >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cylinder</h1>
+            
+            <canvas id="gl-canvas" width="450" height="450" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
         </div>

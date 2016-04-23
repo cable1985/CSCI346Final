@@ -75,8 +75,15 @@ main()
     </head>
     <body onload="canvasMain()">
         <div>
-            <h1 style="color:blue;text-align:left">The Truncated Cube</h1>
-            <canvas id="gl-canvas" width="512" height="512" >
+            <h1 style="font-size:50px;
+                       text-shadow: -1px -1px 0px #000,
+                       1px 1px 0px #000,
+                       2px 2px 0px #000,
+                       -2px -2px 0px #000;
+                       color:#FFA500;
+                       font-family:Verdana, Geneva, sans-serif;text-align:left"
+                       >Truncated Cube</h1>
+            <canvas id="gl-canvas" width="400" height="400" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
         </div>
@@ -85,6 +92,7 @@ main()
             <button id= "yButton">Rotate Y</button>
             <button id= "zButton">Rotate Z</button>
             <button id= "pButton">Pause / Resume</button>
+            <a href="index.html" class="btn btn-success" role="button">Go Back</a>
         </div>
        
     </body>

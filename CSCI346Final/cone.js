@@ -72,7 +72,7 @@ function canvasMain() {
  */
 function generateCylinder() {
 
-    var radius = 0.2;    //sets desired radius size  
+    var radius = 0.5;    //sets desired radius size  
     
 // generate vertices
     var vertices = [];
@@ -80,13 +80,13 @@ function generateCylinder() {
     //left circle face
     var inc = 2*Math.PI / 40;
     for (var theta = 0; theta < 2*Math.PI; theta += inc){
-        vertices.push(vec4(radius * Math.cos(theta), radius * Math.sin(theta), -0.8, 1));
+        vertices.push(vec4(0 * Math.cos(theta), 0 * Math.sin(theta), -0.8, 1));
     }
     vertices.push(vec4(0, 0, -0.7, 1)); // center point #40
     
     //right circle face - use "radius" for cylinder, or set change it to 0 for cone    
     for (var theta = 0; theta < 2*Math.PI; theta += inc){
-        vertices.push(vec4(0.5 * Math.cos(theta), 0.5 * Math.sin(theta), 0.8, 1));
+        vertices.push(vec4(radius * Math.cos(theta), radius * Math.sin(theta), 0.8, 1));
     }
     vertices.push(vec4(0, 0, 0.7, 1)); // center point #81
     

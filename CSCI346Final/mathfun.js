@@ -5,7 +5,7 @@
  * Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * 
  */
-
+var flag= true;
 var draw;
 var gl;
 var xAxis = 0; //used as a subscript in theta array
@@ -47,6 +47,8 @@ function canvasMain() {
         axis = zAxis;
 
     };
+    
+    document.getElementById("Pause").onclick = function(){flag = !flag;};
     
       
         drawMountain(gl, program, shape, axis);

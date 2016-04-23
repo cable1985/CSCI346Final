@@ -5,7 +5,7 @@
  * Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * 
  */
-
+var flag = true;
 var draw;
 var gl;
 var xAxis = 0; //used as a subscript in theta array
@@ -48,6 +48,8 @@ function canvasMain() {
 
     };
     
+    document.getElementById("Pause").onclick = function(){flag = !flag;};
+    
       
         drawMountain(gl, program, shape, axis);
    
@@ -58,44 +60,52 @@ function canvasMain() {
     
 
 function generateMountain() {
+   var h = 0;
+   var k = 0;
+   var vertices = [];
+   var inc = 2*Math.PI/50;
    
-    var vertices = [];
-    for (var i = 0; i < n + 1; i++) {
-        for (var j = 0; j < m + 1; j++) {
-            var x = (1.6 * i / n) - .8;
-            var z = (1.6 * j / m) - .8;
-            var b = (6 * j / m) - 3;
-            var a = (6 * i / n) - 3;
-            vertices.push(vec4(x, .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2))), z, 1));
-            //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
-            //or this one .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2)
-            
-            //.2*Math.sin(a*b)
-            //
+    for(var r = 0.7; r >= 0; r-= .05){
+    for(var theta = 0; theta < 2*Math.PI; theta +=inc){
+       var x = h + r*Math.cos(theta);
+       var y = k - r*Math.sin(theta);
+        vertices.push(vec4(.49-(Math.pow(x,2)+Math.pow(y,2)),x,y,1));
+        
+    } 
+   }   
+    
+    for(var r = 0.7; r >= 0; r-= .05){
+    for(var theta = 0; theta < 2*Math.PI; theta +=inc){
+       var x = h + r*Math.cos(theta);
+       var y = k - r*Math.sin(theta);
+        vertices.push(vec4(-.49+(Math.pow(x,2)+Math.pow(y,2)),x,y,1));
+        
+    } 
+   }   
+    
 
-        }
-    }
-
-    var what = (n + 1) * m;
+    
     var indices = [];
-    for (var i = 0; i < what - 1; i++) {
-        if (i % (n + 1) !== n) {
-            indices.push(i, i + 1, i + (m + 2), i, i + (m + 2), i + (m + 1));
+    for(var i = 0; i < vertices.length/2;i++){
+        if(i+51<vertices.length/2){
+            indices.push(i,i+1,i+51,i+51,i+50,i,i,i+49);
+         }
+    }
+        
+    for(var i = vertices.length/2; i < vertices.length;i++){
+        if(i+51<vertices.length){
+            indices.push(i,i+1,i+51,i+51,i+50,i,i,i+49);
         }
     }
-
+    
+    
+    
     var colors = [];
-    for (var i = 0; i < what; i++) {
-        //colors.push(vec4(0.8, .6, 0, 1));
-        colors.push(vec4(Math.random() * .64, 0, Math.random(), 1));
-        colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
-
+    for(var i = 0; i < vertices.length; i++){
+        colors.push(vec4(Math.random()*.4,Math.random()*.7,.3,1));
     }
-
-
-
-
-    //example of an object in java script 
+    console.log(colors);
+    
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 
 
@@ -142,8 +152,8 @@ function drawMountain(gl, program, obj, viewAxis) {
 
     thetaLoc = gl.getUniformLocation(program, "theta");
     axis = viewAxis;
-    elementCount = obj.indices.length/2;
-    elementCount2 = obj.indices.length;
+    
+    elementCount = obj.indices.length;
     
 
     render();
@@ -154,10 +164,9 @@ function render()
 {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
-    theta[axis] += 0.5;  //rotate by 2degrees
+   if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    gl.drawElements(gl.POINTS, elementCount2, gl.UNSIGNED_SHORT, 0);
+    gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame(render);
 }

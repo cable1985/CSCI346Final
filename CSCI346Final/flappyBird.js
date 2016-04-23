@@ -700,7 +700,7 @@ var indices = [];
        
  }
     
-    
+    //the colors for flappy bird each one is labeled accordingly
     var colors = [
 //A:  black
 vec4(0.2,0.2,0.2,1),
@@ -1377,7 +1377,6 @@ function drawObject(gl, program, obj, viewAxis) {
     axis = viewAxis;
     elementCount = obj.indices.length;
     
-    
     render();
    
 }//drawObject
@@ -1388,8 +1387,6 @@ function render()
 
     theta[axis] += 0.5;  //rotate by 2degrees
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
-
     gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    //gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame( render );  
 }

@@ -122,9 +122,9 @@ function generateCylinder() {
     //generate colors (used colors from previous assignment)
     var colors = [];
     for (var i = 0; i < 80; i++) {
-        colors.push(vec4(0, Math.random()*.9, 0, 1));
-        colors.push(vec4(0, Math.random(), Math.random(), 1));
-        colors.push(vec4(Math.random()*.9, 0, Math.random()*.9, 1));
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
     }
     console.log(vertices);
 

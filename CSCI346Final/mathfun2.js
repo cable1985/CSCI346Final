@@ -143,8 +143,8 @@ function drawMountain(gl, program, obj, viewAxis) {
 
     thetaLoc = gl.getUniformLocation(program, "theta");
     axis = viewAxis;
-    elementCount = obj.indices.length/2;
-    elementCount2 = obj.indices.length;
+    elementCount = obj.indices.length;
+    
     
 
     render();
@@ -158,7 +158,6 @@ function render()
     if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    gl.drawElements(gl.LINES, elementCount2, gl.UNSIGNED_SHORT, 0);
+    gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame(render);
 }

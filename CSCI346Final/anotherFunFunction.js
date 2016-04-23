@@ -67,13 +67,7 @@ function generateMountain() {
             var z = (1.6 * j / m) - .8;
             var b = (6 * j / m) - 3;
             var a = (6 * i / n) - 3;
-            vertices.push(vec4(x,.3*Math.sin(a*a + b*b)/(a*a+b*b), z, 1));
-            //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
-            //or this one 
-            
-            //.2*Math.sin(a*b)
-            //
-
+            vertices.push(vec4(x, 0.3*Math.sin((a*a) + (b*b))/((a*a)+(b*b)), z, 1));
         }
     }
 
@@ -87,8 +81,8 @@ function generateMountain() {
 
     var colors = [];
     for (var i = 0; i < what; i++) {
-        colors.push(vec4(Math.random()*0.8, .6, 0, 1));
-        colors.push(vec4(Math.random() * .64, .5, Math.random(), 1));
+        colors.push(vec4(Math.random()*0.8, .6, .5, 1));
+        colors.push(vec4(Math.random() * .64, Math.random()*.5, Math.random()*.3, 1));
         colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
 
     }
@@ -139,7 +133,7 @@ function drawMountain(gl, program, obj, viewAxis) {
 
     thetaLoc = gl.getUniformLocation(program, "theta");
     axis = viewAxis;
-    elementCount = obj.indices.length/2;
+    elementCount = obj.indices.length;
     elementCount2 = obj.indices.length;
     
 
@@ -154,7 +148,7 @@ function render()
     if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    gl.drawElements(gl.LINES, elementCount2, gl.UNSIGNED_SHORT, 0);
+    gl.drawElements(gl.POINTS, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
+    //gl.drawElements(gl.LINES, elementCount2, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame(render);
 }

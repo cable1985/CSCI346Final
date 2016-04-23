@@ -1,22 +1,26 @@
 
 <!DOCTYPE html>
-
 <!--
    Author:  Edward Angel
-   Modified by: Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Clarke
+   Modified by: Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Xlarke
    Last Modified: 04-23-2016
+   Source: Modification of code from previous Computer Graphics assignments-->
+
+<!DOCTYPE html>
+<!--
+   Author:  Edward Angel
+   Modified by: Marietta E. Cameron, David Cable, Partner Justin Blankenship
    Source: Modification from Code supplement to textbook-->
 <html>
     <head>
-        
-        <title>Cone</title>
+        <title>Math Surface Function 3</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script id="vertex-shader" type="x-shader/x-vertex">
+        <script id="vertex-shader" type="x-shader/x-vertex">
 
 attribute  vec4 vPosition;
 attribute  vec4 vColor;
@@ -71,7 +75,7 @@ main()
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/initShaders.js"></script>
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/MV.js"></script>
         
-        <script type="text/javascript" src="cone.js"></script>
+        <script type="text/javascript" src="mathfun3.js"></script>
 
 
     </head>
@@ -84,11 +88,11 @@ main()
                        -2px -2px 0px #000;
                        color:#FFA500;
                        font-family:Verdana, Geneva, sans-serif;text-align:left"
-                       >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cone</h1>
+                       >Surface Function</h1>
+            <br>
             
-            <h2 style="color:#FFA500;background-color: #000; margin-left: 160px; margin-right: 1035px; padding-bottom: 4px; padding-            left: 8px; padding-right: 8px; padding-top: 10px;">&nbsp;
-                       &#960;r<sup>2</sup></h2>
-            
+            <h2 style="color:#FFA500;background-color: #000; margin-left: 110px; margin-right: 950px; padding-bottom: 4px; padding-            left: 8px; padding-right: 8px; padding-top: 10px;">&nbsp;
+                       z = e<sup>-a(x<sup>2</sup> + y<sup>2</sup>)</sup></h2>
             <canvas id="gl-canvas" width="400" height="400" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            

@@ -185,7 +185,7 @@ function render()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    theta[axis] += .7;  //rotate by desired degrees
+    theta[axis] += .3;  //rotate by desired degrees
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
     gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  

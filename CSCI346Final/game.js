@@ -1,131 +1,152 @@
-
 /**
  * 
  * @author:  Edward Angel
- * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
+ * Modified by Marietta E. Cameron, 
+ * Modified by David Cable Partner Justin Blankenship
+ * 
+ * Last Modified: 2-05-2016
+ * 
+ * hypocycloid
  */
-var flag = true;
-var draw;
+
 var gl;
-var xAxis = 0; //used as a subscript in theta array
-var yAxis = 1; //used as a subscript in theta array
-var zAxis = 2; //used as a subscript in theta array
-var n = 100, m =100;
-var axis = 0;
-var theta = [0, 0, 0]; //rotation angle about x, y, z 
-var thetaLoc;
-var elementCount; //number of indices
+var points;
 
 function canvasMain() {
-    //load webGL
     var canvas = document.getElementById("gl-canvas"); //must be in html
+
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
         alert("WebGL isn't available");
     }
 
 
-    //  Load shaders and initialize attribute buffers
-    var program = initShaders(gl, "vertex-shader", "fragment-shader");
-
-    var shape = generateMountain();
+    //  Configure WebGL
 
     gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
-
-    //event listeners for buttons    
-    document.getElementById("xButton").onclick = function () {
-        axis = xAxis;
-
-    };
-    document.getElementById("yButton").onclick = function () {
-        axis = yAxis;
-
-    };
-    document.getElementById("zButton").onclick = function () {
-        axis = zAxis;
-
-    };
+    //  Load shaders and initialize attribute buffers
+    var program = initShaders(gl, "vertex-shader", "fragment-shader");
+    gl.useProgram(program);
+    gl.clear(gl.COLOR_BUFFER_BIT);
     
-    document.getElementById("Pause").onclick = function(){flag = !flag;};
+    var objColor = shapeColor(1,50);
+     
+       for(var i = 0; i < 10; i++){
+            var size = Math.random()* 0.5;
+            drawObject(gl, program, generateShape(size * 1.0, size * 0.3333, 50 , .5, -.5), objColor, gl.LINE_STRIP);
+            drawObject(gl, program, generateShape1(size * 1.0, size * 0.3333, 50 , .5, .5), objColor, gl.LINE_STRIP);
+            
+        }
     
-      
-        drawMountain(gl, program, shape, axis);
+    
+       for(var i = 0; i < 10; i++){
+            var size = Math.random()* 0.5;
+            
+            drawObject(gl, program, generateShape(size * 1.0, size * 0.3333, 50 , .5, .37), objColor, gl.LINE_STRIP);
+            drawObject(gl, program, generateShape1(size * 1.0, size * 0.3333, 50 , .5, -.37), objColor, gl.LINE_STRIP);
+        }
+    
    
     
-    //drawMountain(gl, program, shape, axis);
-}//CanvasMain
-
+       for(var i = 0; i < 10; i++){
+            var size = Math.random()* 0.5;
+            
+            drawObject(gl, program, generateShape(size * 1.0, size * 0.3333, 50 , -.5, -.5), objColor, gl.LINE_STRIP);
+            drawObject(gl, program, generateShape1(size * 1.0, size * 0.3333, 50 , -.5, .5), objColor, gl.LINE_STRIP);
+        }
     
+    
+       for(var i = 0; i < 10; i++){
+            var size = Math.random()* 0.5;
+            
+            drawObject(gl, program, generateShape(size * 1.0, size * 0.3333, 50 , -.5, .37), objColor, gl.LINE_STRIP);
+            drawObject(gl, program, generateShape1(size * 1.0, size * 0.3333, 50 , -.5, -.37), objColor, gl.LINE_STRIP);
+        }
+       
+       //middle
+       for(var i = 0; i < 10; i++){
+            var size = Math.random()* 0.1;
+            var size1 = 0.1;
+            
+            drawObject(gl, program, generateShape(size * 1.0, size * 0.3333, 50 , 0, 0), objColor, gl.LINE_STRIP);
+            drawObject(gl, program, generateShape1(size * 1.0, size * 0.3333, 50 , 0, 0), objColor, gl.LINE_STRIP);
+        } 
+        
+        //corner shapes
+        drawObject(gl, program, generateShape(size1 * 1.0, size1 * 0.3333, 50 , -.9, .9), objColor, gl.TRIANGLE_FAN);
+        drawObject(gl, program, generateShape1(size1 * 1.0,  size1 * 0.3333, 50 , .9, -.9), objColor, gl.TRIANGLE_FAN);
+        drawObject(gl, program, generateShape(size1 * 1.0, size1 * 0.3333, 50 , -.9, -.9), objColor, gl.TRIANGLE_FAN);
+        drawObject(gl, program, generateShape1(size1 * 1.0,  size1 * 0.3333, 50 , .9, .9), objColor, gl.TRIANGLE_FAN);
+        drawObject(gl, program, generateShape(.3*1, .3*.0909, 50 , 0, 0), objColor, gl.LINE_STRIP);
+}
+;//CanvasMain
 
-function generateShape(x, y) {
+//blending
+function shapeColor(radius, pointCount){
+    var circleVertices = [];
+    var inc = 2*Math.PI / pointCount;
+    
+    for (var theta = 0; theta <2*Math.PI; theta += inc){
+        circleVertices.push(vec4(radius*Math.cos(theta), radius*Math.sin(theta), 0, 1.0));
+    }
+    
+    return circleVertices;
+};
+
+//hypocycloid facing West
+function generateShape(a, b, pointCount, x, y) {
 
     var shapeVertices = [];
-    var inc = 2 * Math.PI/50;
+    var inc = 2 * Math.PI / pointCount;
     for (var theta = 0; theta < 2 * Math.PI; theta += inc) {
-        var a = h + r*Math.cos(theta);
-        var b = k - r*Math.sin(theta);
-        shapeVertices.push(vec2(x+a,y+b));
+        shapeVertices.push(vec2(x + (((a - b) * Math.cos(theta)) + (b * Math.cos(((a / b) - 1) * theta))), y + (((a - b)) * Math.sin(theta)) - (b * Math.sin(((a / b) - 1) * theta))));
     }
 
     return shapeVertices;
-    
-    var colors = [];
-    for(var i = 0; i < shapeVertices.length; i++){
-        colors.push(vec4(0,1,1,1));
-    }
 };
 
+//hypocycloid facing East
+function generateShape1(a, b, pointCount, x, y) {
 
-function drawMountain(gl, program, obj, viewAxis) {
+    var shapeVertices = [];
+    var inc = 2 * Math.PI / pointCount;
+    for (var theta = 0; theta < 2 * Math.PI; theta += inc) {
+        shapeVertices.push(vec2(x + -(((a - b) * Math.cos(theta)) + (b * Math.cos(((a / b) - 1) * theta))), -(y + (((a - b)) * Math.sin(theta)) - (b * Math.sin(((a / b) - 1) * theta)))));
+    }
+
+    return shapeVertices;
+};
+
+function drawObject(gl, program, vertices, colors, glType) {
+    var colorLocation = gl.getAttribLocation(program, "myColor"); 
+    gl.enableVertexAttribArray(colorLocation);
+    var objVertexColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, objVertexColorBuffer);    
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW);
+    objVertexColorBuffer.itemSize = colors[0].length;
+    objVertexColorBuffer.numItems = colors.length;
+   
+    var bufferId = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);   
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices), gl.STATIC_DRAW);
     
-    //Background 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.DEPTH_TEST);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    // set the shader to use
-    gl.useProgram(program);
-
-
-    // color array atrribute buffer
-
-    var cBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(obj.colors), gl.STATIC_DRAW);
-
-    var vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vColor);
-
-    // vertex array attribute buffer
-
-    var vBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(obj.vertices), gl.STATIC_DRAW);
+    
+    // Associate out shader variables with our data buffer
 
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
-
-    thetaLoc = gl.getUniformLocation(program, "theta");
-    axis = viewAxis;
-    elementCount = obj.indices.length;
-    elementCount2 = obj.indices.length;
     
-
-    render();
-
-}//drawObject
-
-function render()
-{
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+   
     
-    if(flag) theta[axis] += 0.5;
-    gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
-
-    gl.drawElements(gl.POINTS, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    //gl.drawElements(gl.LINES, elementCount2, gl.UNSIGNED_SHORT, 0);
-    requestAnimFrame(render);
-}
+    gl.bindBuffer(gl.ARRAY_BUFFER, objVertexColorBuffer);
+    gl.vertexAttribPointer(colorLocation, objVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+      
+    
+    
+    gl.drawArrays(glType, 0, vertices.length);
+   
+   
+}//drawObject 

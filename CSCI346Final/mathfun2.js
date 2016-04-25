@@ -57,8 +57,7 @@ function canvasMain() {
    
 }//CanvasMain
 
-    
-
+  
 function generateShape() {
    
     var vertices = [];

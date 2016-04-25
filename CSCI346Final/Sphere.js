@@ -53,29 +53,30 @@ function canvasMain() {
       
         drawSphere(gl, program, shape, axis);
    
+    
+    //drawMountain(gl, program, shape, axis);
 }//CanvasMain
 
     
 
 function generateSphere() {
-   var h = 0;
-   var k = 0;
    var vertices = [];
    var inc = 2*Math.PI/50;
    
+    //creates a circular grid starting at radius of 0.7 down to 0 decrementing by 0.05 each cycle
     for(var r = 0.7; r >= 0; r-= .05){
     for(var theta = 0; theta < 2*Math.PI; theta +=inc){
-       var x = h + r*Math.cos(theta);
-       var y = k - r*Math.sin(theta);
+       var x = r*Math.cos(theta);
+       var y = r*Math.sin(theta);
         vertices.push(vec4(.49-(Math.pow(x,2)+Math.pow(y,2)),x,y,1));
         
     } 
    }   
-    
+    //creates a circular grid starting at radius of 0.7 down to 0 decrementing by 0.05 each cycle
     for(var r = 0.7; r >= 0; r-= .05){
     for(var theta = 0; theta < 2*Math.PI; theta +=inc){
-       var x = h + r*Math.cos(theta);
-       var y = k - r*Math.sin(theta);
+       var x = r*Math.cos(theta);
+       var y = r*Math.sin(theta);
         vertices.push(vec4(-.49+(Math.pow(x,2)+Math.pow(y,2)),x,y,1));
         
     } 
@@ -85,7 +86,7 @@ function generateSphere() {
     
     var indices = [];
     for(var i = 0; i < vertices.length/2;i++){
-        if(i+51<vertices.length/2){
+        if(i+51<vertices.length/2-1){
             indices.push(i,i+1,i+51,i+51,i+50,i,i,i+49);
          }
     }
@@ -165,6 +166,6 @@ function render()
    if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);
+    gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame(render);
 }

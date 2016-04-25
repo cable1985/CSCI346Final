@@ -29,7 +29,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMathFunction();
+    var shape = generateShape();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -56,7 +56,7 @@ function canvasMain() {
 
     
 
-function generateMathFunction() {
+function generateShape() {
    
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {

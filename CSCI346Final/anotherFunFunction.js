@@ -28,7 +28,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMountain();
+    var shape = generateShape();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -50,15 +50,13 @@ function canvasMain() {
     document.getElementById("Pause").onclick = function(){flag = !flag;};
     
       
-        drawMountain(gl, program, shape, axis);
+        drawShape(gl, program, shape, axis);
    
-    
-    //drawMountain(gl, program, shape, axis);
 }//CanvasMain
 
     
 
-function generateMountain() {
+function generateShape() {
    
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {
@@ -67,7 +65,7 @@ function generateMountain() {
             var z = (1.6 * j / m) - .8;
             var b = (6 * j / m) - 3;
             var a = (6 * i / n) - 3;
-            vertices.push(vec4(x, 0.3*Math.sin((a*a) + (b*b))/((a*a)+(b*b)), z, 1));
+            vertices.push(vec4(x, 0.5*Math.sin((a*a) + (b*b))/((a*a)+(b*b)), z, 1));
         }
     }
 
@@ -81,12 +79,12 @@ function generateMountain() {
 
     var colors = [];
     for (var i = 0; i < what; i++) {
-        colors.push(vec4(Math.random()*0.8, .6, .5, 1));
-        colors.push(vec4(Math.random() * .64, Math.random()*.5, Math.random()*.3, 1));
-        colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
+        colors.push(vec4(Math.random()*0.8, 0, .5, 1));
+        colors.push(vec4(Math.random() * .64, 0, Math.random()*.3, 1));
+        colors.push(vec4(Math.random() * .34, 0, Math.random() * .8, 1));
 
     }
-    //example of an object in java script 
+  
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 
 
@@ -94,7 +92,7 @@ function generateMountain() {
 }
 
 
-function drawMountain(gl, program, obj, viewAxis) {
+function drawShape(gl, program, obj, viewAxis) {
     
     //Background 
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
@@ -148,7 +146,7 @@ function render()
     if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.POINTS, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
+    gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
     //gl.drawElements(gl.LINES, elementCount2, gl.UNSIGNED_SHORT, 0);
     requestAnimFrame(render);
 }

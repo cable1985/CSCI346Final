@@ -40,6 +40,19 @@ h3 {
      1px 1px 0 #000;   
 }
 
+h4 {
+    margin-top: -40px;
+    text-align: center;
+    font-size: 35px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
+}
+
 canvas {
     padding: 10px;
     display: block;

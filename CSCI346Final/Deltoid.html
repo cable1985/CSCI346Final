@@ -7,7 +7,7 @@
    Source: Modification from Code supplement to textbook-->
 <html>
     <head>
-        <title>Polyhedron</title>
+        <title>Deltoid</title>
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,15 +70,17 @@ main()
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/initShaders.js"></script>
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/MV.js"></script>
         
-        <script type="text/javascript" src="polyhedron.js"></script>
+        <script type="text/javascript" src="Deltoid.js"></script>
 
 
     </head>
     <body onload="canvasMain()"> 
         <div>
             
-            <h1>Polyhedron</h1>
-            
+            <h1>Deltoid</h1>
+            <h4>x = 2acos(theta) + acos(2theta)</h4>
+            <h4>y = 2asin(theta) - asin(2theta)</h4>
+          
             <canvas id="gl-canvas" width="512" height="512" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            

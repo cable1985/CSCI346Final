@@ -11,7 +11,7 @@ var gl;
 var xAxis = 0; //used as a subscript in theta array
 var yAxis = 1; //used as a subscript in theta array
 var zAxis = 2; //used as a subscript in theta array
-var n = 100, m =100;
+var n = 150, m =150;
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
 var thetaLoc;
@@ -29,7 +29,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMountain();
+    var shape = generateMathFunction();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -51,15 +51,12 @@ function canvasMain() {
     document.getElementById("Pause").onclick = function(){flag = !flag;};
     
       
-        drawMountain(gl, program, shape, axis);
-   
-    
-    //drawMountain(gl, program, shape, axis);
-}//CanvasMain
+        drawShape(gl, program, shape, axis);
+ }
 
     
 
-function generateMountain() {
+function generateMathFunction() {
    
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {
@@ -70,11 +67,6 @@ function generateMountain() {
             var a = (6 * i / n) - 3;
             vertices.push(vec4(x, .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2))), z, 1));
             //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
-            //or this one .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2)
-            
-            //.2*Math.sin(a*b)
-            //
-
         }
     }
 
@@ -93,11 +85,7 @@ function generateMountain() {
         colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
 
     }
-
-
-
-
-    //example of an object in java script 
+    
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 
 
@@ -105,7 +93,7 @@ function generateMountain() {
 }
 
 
-function drawMountain(gl, program, obj, viewAxis) {
+function drawShape(gl, program, obj, viewAxis) {
     
     //Background 
     gl.clearColor(0.0, 0.0, 0.0, 0.0);

@@ -31,7 +31,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMountain();
+    var shape = generateShape();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -51,15 +51,11 @@ function canvasMain() {
     };
     document.getElementById("pButton").onclick = function(){flag = !flag;}; 
 
-    drawMountain(gl, program, shape, axis);
+    drawShape(gl, program, shape, axis);
 }//CanvasMain
 
-/**
- * Generate Cube creates the geometry for the cube object (setup vertices, colors, and indices)
- * @returns {generateCube.cube}
- */
 
-function generateMountain() {
+function generateShape() {
 
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {
@@ -84,18 +80,17 @@ function generateMountain() {
     for (var i = 0; i < what -1 + 1; i++) {
         colors.push(vec4(0, Math.random()*.9, 0, 1));
         colors.push(vec4(0, Math.random(), Math.random(), 1));
-        colors.push(vec4(Math.random()*.9, 0, Math.random()*.9, 1));
+        colors.push(vec4(Math.random()*.9, .5, Math.random()*.9, 1));
          
     }
 
-    //example of an object in java script 
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 
 
     return shape;
 }
 
-//function that creates a hill      z = e ^ (-a(x^2+y^2)
+//function that creates a hill      y = e ^ (-a(x^2+z^2)
 function surface(t, u) {
     var xSqrd = Math.pow(t, 2)%1.5;
     var zSqrd = Math.pow(u, 2)%1.5;
@@ -104,7 +99,7 @@ function surface(t, u) {
 }
 
 
-function drawMountain(gl, program, obj, viewAxis) {
+function drawShape(gl, program, obj, viewAxis) {
 
     // clear the background (with black)
     gl.clearColor(0, 0, 0, 0);

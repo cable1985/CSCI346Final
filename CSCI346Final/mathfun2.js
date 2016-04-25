@@ -31,7 +31,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMountain();
+    var shape = generateShape();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -53,15 +53,13 @@ function canvasMain() {
     document.getElementById("Pause").onclick = function(){flag = !flag;};
     
       
-        drawMountain(gl, program, shape, axis);
+        drawShape(gl, program, shape, axis);
    
-    
-    //drawMountain(gl, program, shape, axis);
 }//CanvasMain
 
     
 
-function generateMountain() {
+function generateShape() {
    
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {
@@ -70,13 +68,8 @@ function generateMountain() {
             var z = (1.6 * j / m) - .8;
             var b = (6 * j / m) - 3;
             var a = (6 * i / n) - 3;
-            vertices.push(vec4(x,.2*Math.sin(a*b), z, 1));
-            //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
-            //or this one .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2)
-            
-            //.2*Math.sin(a*b)
-            //
-
+            vertices.push(vec4(x,.4*Math.sin(a*b), z, 1));
+            //http://mathinsight.org/surface_graph_function
         }
     }
 
@@ -97,17 +90,12 @@ function generateMountain() {
     }
 
 
-
-
-    //example of an object in java script 
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
-
-
     return shape;
 }
 
 
-function drawMountain(gl, program, obj, viewAxis) {
+function drawShape(gl, program, obj, viewAxis) {
     
     //Background 
     gl.clearColor(0.0, 0.0, 0.0, 0.0);

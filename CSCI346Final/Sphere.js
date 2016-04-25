@@ -29,7 +29,7 @@ function canvasMain() {
     //  Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
-    var shape = generateMountain();
+    var shape = generateSphere();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
 
@@ -51,15 +51,13 @@ function canvasMain() {
     document.getElementById("Pause").onclick = function(){flag = !flag;};
     
       
-        drawMountain(gl, program, shape, axis);
+        drawSphere(gl, program, shape, axis);
    
-    
-    //drawMountain(gl, program, shape, axis);
 }//CanvasMain
 
     
 
-function generateMountain() {
+function generateSphere() {
    var h = 0;
    var k = 0;
    var vertices = [];
@@ -113,7 +111,7 @@ function generateMountain() {
 }
 
 
-function drawMountain(gl, program, obj, viewAxis) {
+function drawSphere(gl, program, obj, viewAxis) {
     
     //Background 
     gl.clearColor(0.0, 0.0, 0.0, 0.0);

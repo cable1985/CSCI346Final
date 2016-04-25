@@ -2,12 +2,11 @@
     Author: DavidCable, Justin Blankenship, Lucas Clarke
 */
 
-#index h1 {
-     margin-top: 10px;
-    margin-left: 41%;
-    font-size: 300%;
+h1 {
+    text-align: center;
+    font-size: 55px;
     font-family: sans-serif;
-    color: yellowgreen;  
+    color: white;  
     text-shadow:
    -2px -2px 0 #000,  
     2px -2px 0 #000,
@@ -15,41 +14,73 @@
      2px 2px 0 #000;   
 }
 
-#index a{
-    
-    align-self: center;
-    
+h2 {
+    margin-top: -40px;
+    text-align: center;
+    font-size: 35px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
 }
 
-canvas{
-align-content: center;
+h3 {
+    margin-top: -30px;
+    text-align: center;
+    font-size: 25px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
 }
+
+canvas {
+    padding: 10px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 
 body{
     background-color: #556;
-    background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-    linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-    linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), 
-    linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
-    background-size:80px 140px;
-    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+    background-image: url("https://i.ytimg.com/vi/Ejy2yYvzIq8/maxresdefault.jpg");
+    background-repeat: repeat-y;
 }
 
-#stuff h2{
-     margin-top: 10px;
-    margin-left: 41%;
-    font-size: 300%;
+#homeBtn {
+    background-color: rgba (0, 0, 0, 0.5);
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    background-color: #006080;
     font-family: sans-serif;
-    color: yellowgreen;  
-    text-shadow:
-   -2px -2px 0 #000,  
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-     2px 2px 0 #000;
-    
+    font-size: 25px;
+    padding: 7px;
+    display: block;
+    color: white;
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 3px solid white;
 }
 
 
-//source: http://lea.verou.me/css3patterns/#japanese-cube
+

@@ -4,6 +4,9 @@
  * @author:  Edward Angel
  * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
  */
+
+
+
 var flag = true;
 var draw;
 var gl;
@@ -89,7 +92,7 @@ function generateMountain() {
     for (var i = 0; i < what; i++) {
         colors.push(vec4(Math.random()*0.8, .6, 0, 1));
         colors.push(vec4(Math.random() * .64, .5, Math.random(), 1));
-        colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
+        colors.push(vec4(Math.random() * .34, .63, Math.random() * 0, 1));
 
     }
 
@@ -107,7 +110,7 @@ function generateMountain() {
 function drawMountain(gl, program, obj, viewAxis) {
     
     //Background 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

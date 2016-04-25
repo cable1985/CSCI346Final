@@ -12,9 +12,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         
         
 <script id="vertex-shader" type="x-shader/x-vertex">
@@ -79,16 +76,19 @@ main()
     </head>
     <body onload="canvasMain()"> 
         <div>
+            
+            <h1>Polyhedron</h1>
+            
             <canvas id="gl-canvas" width="512" height="512" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
         </div>
         <div>
-            <button id= "xButton">Rotate X</button>
-            <button id= "yButton">Rotate Y</button>
-            <button id= "zButton">Rotate Z</button>
-            <button id = "Pause">Pause/Restart</button>
-            <a href="index.html" class="btn btn-success" role="button">Go Back</a> 
+            <button class="btn" id= "xButton">Rotate X</button>
+            <button class="btn" id= "yButton">Rotate Y</button>
+            <button class="btn" id= "zButton">Rotate Z</button>
+            <button class="btn" id = "Pause">Pause/Restart</button>
+            <a href="index.html"><button  class="btn">Go Back</button></a>
             
         </div>
        

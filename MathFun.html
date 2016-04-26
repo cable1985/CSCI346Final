@@ -1,17 +1,20 @@
 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <!--
    Author:  Edward Angel
    Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
    Source: Modification from Code supplement to textbook-->
 <html>
     <head>
-        <title>Flappy Bird</title>
+        <title>Math Function</title>
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="newstylesheet.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
         
 <script id="vertex-shader" type="x-shader/x-vertex">
     
@@ -69,26 +72,27 @@ main()
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/initShaders.js"></script>
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/MV.js"></script>
         
-        <script type="text/javascript" src="flappyBird.js"></script>
+        <script type="text/javascript" src="mathfun.js"></script>
 
 
     </head>
     <body onload="canvasMain()"> 
-        <div class="left">
-            
-            <h1>Flappybird</h1>
-            
-            <h2>Creator and Developer:</br> Nguyễn Hà Đông (Dong Nguyen)</h2>
+        
+        <h1>Math Function 1</h1>
+        <h2>f(x, z) = sin(x<sup>2</sup>) &middot; cos(z<sup>2</sup>)</h2>
+        
+        <div>
             <canvas id="gl-canvas" width="512" height="512" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
         </div>
-        <div class="right">
+        <div>
             <button class="btn" id= "xButton">Rotate X</button>
             <button class="btn" id= "yButton">Rotate Y</button>
             <button class="btn" id= "zButton">Rotate Z</button>
-            <button class="btn" id = "Pause">Pause/Restart</button>
-            <a href="index.html"><button  class="btn">Go Back</button></a>
+            <button class="btnn" id = "Pause">Pause/Restart</button>
+            <a href="index.html"><button  class="btnn">Go Back</button></a> 
+            
         </div>
        
     </body>

@@ -5,7 +5,7 @@
  * Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * 
  */
-var flag = true;
+var flag = true; 
 var draw;
 var gl;
 var xAxis = 0; //used as a subscript in theta array
@@ -53,48 +53,47 @@ function canvasMain() {
       
         drawSphere(gl, program, shape, axis);
    
-    
-    //drawMountain(gl, program, shape, axis);
 }//CanvasMain
 
     
 
 function generateSphere() {
    var vertices = [];
-   var inc = 2*Math.PI/50;
+   var pointCount = 50;
+   var inc = 2*Math.PI/pointCount;
+   var inc2 = .005;
+    //creates a circular grid starting at radius of 0.7 down to 0 decrementing by 0.05 each cycle
+    for(var r = 1.0; r >= 0; r-= inc2){
+    for(var theta = 0; theta < 2*Math.PI; theta +=inc){
+       var x = r*Math.cos(theta);
+       var y = r*Math.sin(theta);
+        vertices.push(vec4(Math.sqrt(1-Math.pow(x,2)-Math.pow(y,2)),x,y,1));
+        
+    } 
+   }   
    
     //creates a circular grid starting at radius of 0.7 down to 0 decrementing by 0.05 each cycle
-    for(var r = 0.7; r >= 0; r-= .05){
+    for(var r = 1.0; r >= 0; r-= inc2){
     for(var theta = 0; theta < 2*Math.PI; theta +=inc){
        var x = r*Math.cos(theta);
        var y = r*Math.sin(theta);
-        vertices.push(vec4(-(Math.pow(x,2)+Math.pow(y,2)),x,y,1));
-        
+        vertices.push(vec4(-Math.sqrt(1-Math.pow(x,2)-Math.pow(y,2)),x,y,1));
     } 
    }   
-    //creates a circular grid starting at radius of 0.7 down to 0 decrementing by 0.05 each cycle
-    for(var r = 0.7; r >= 0; r-= .05){
-    for(var theta = 0; theta < 2*Math.PI; theta +=inc){
-       var x = r*Math.cos(theta);
-       var y = r*Math.sin(theta);
-        vertices.push(vec4((Math.pow(x,2)+Math.pow(y,2)),x,y,1));
-        
-    } 
-   }   
-    
-
     
     var indices = [];
-    for(var i = 0; i < vertices.length/2;i++){
-        if(i+51<vertices.length/2-1){
-            indices.push(i,i+1,i+51,i+51,i+50,i,i,i+49);
-         }
+    for(var i = 0; i < vertices.length/2-(pointCount);i++){
+      
+            //indices.push(i,i+1,i+(pointCount+1),i+(pointCount+1),i+(pointCount),i);
+            indices.push(i+1,i,i+(pointCount+1),i,i+(pointCount),i+(pointCount+1));
+      
     }
+    
         
-    for(var i = vertices.length/2; i < vertices.length;i++){
-        if(i+51<vertices.length){
-            indices.push(i,i+1,i+51,i+51,i+50,i,i,i+49);
-        }
+    for(var i = vertices.length/2; i+(pointCount+1) < vertices.length;i++){
+        
+            indices.push(i+1,i,i+(pointCount+1),i,i+(pointCount),i+(pointCount+1));
+        
     }
     
     
@@ -103,7 +102,7 @@ function generateSphere() {
     for(var i = 0; i < vertices.length; i++){
         colors.push(vec4(Math.random()*.4,Math.random()*.7,.3,1));
     }
-    console.log(colors);
+    
     
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 

@@ -1,0 +1,119 @@
+/*
+    Author: DavidCable, Justin Blankenship, Lucas Clarke
+*/
+
+h1 { 
+    text-align: center;
+    font-size: 55px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+     2px 2px 0 #000;   
+}
+
+h2 {
+    margin-top: -40px;
+    text-align: center;
+    font-size: 35px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
+}
+
+h3 {
+    margin-top: -30px;
+    text-align: center;
+    font-size: 25px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
+}
+
+h4 {
+    margin-top: -20px;
+    text-align: center;
+    font-size: 35px;
+    font-family: sans-serif;
+    color: white;  
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;   
+}
+
+canvas {
+    padding: 10px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+
+body{
+    background-color: #556;
+    background-image: url("https://i.ytimg.com/vi/Ejy2yYvzIq8/maxresdefault.jpg");
+    background-repeat: repeat-y;
+}
+
+#homeBtn {
+    background-color: rgba (0, 0, 0, 0.5);
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    
+    background-color: #006080;
+    font-family: sans-serif;
+    font-size: 25px;
+    padding: 7px;
+    display: block;
+    color: white;
+    width: 300px;
+    text-align: center;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 3px solid white;
+    position: relative;
+    top: -400px;
+}
+
+.btnn {
+    
+    background-color: #006080;
+    font-family: sans-serif;
+    font-size: 25px;
+    padding: 7px;
+    display: block;
+    color: white;
+    width: 300px;
+    text-align: center;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 3px solid white;
+    position: relative;
+    top: -560px;
+    right: -950px;
+    
+}
+
+

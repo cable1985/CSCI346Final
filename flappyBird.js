@@ -1,6 +1,6 @@
 
 /**
- * 
+ *  
  * @author:  Edward Angel
  * Modified by Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
  * this is our rendition of FlappyBird; the original flappy bird game was created by Dong Nguyen

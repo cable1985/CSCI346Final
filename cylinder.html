@@ -1,21 +1,22 @@
 
-
 <!DOCTYPE html>
-<!--
+
+<!-- 
    Author:  Edward Angel
-   Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clark
+   Modified by: Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Clarke
+   Last Modified: 04-23-2016
    Source: Modification from Code supplement to textbook-->
 <html>
     <head>
-        <title>Spherical</title>
         
+        <title>Cylinder</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        
-        
-<script id="vertex-shader" type="x-shader/x-vertex">
-    
+        <link rel="stylesheet" type="text/css" href="newstylesheet.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+
 attribute  vec4 vPosition;
 attribute  vec4 vColor;
 varying vec4 fColor;
@@ -49,12 +50,10 @@ void main()
 
     fColor = vColor;
     gl_Position = rz * ry * rx * vPosition;
-    gl_PointSize = 7.0;
 } 
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
-    
 
 precision mediump float;
    
@@ -71,17 +70,18 @@ main()
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/initShaders.js"></script>
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/MV.js"></script>
         
-        <script type="text/javascript" src="Sphere.js"></script>
+        <script type="text/javascript" src="cylinder.js"></script>
 
 
     </head>
-    <body onload="canvasMain()"> 
+    <body onload="canvasMain()">
         <div>
             
-            <h1>Spherical Object</h1>
-            <h2>f(x) = y<sup>2</sup> + z<sup>2</sup></h2>
+          <h1>Cylinder</h1>
             
-            <canvas id="gl-canvas" width="512" height="512" >
+            <h2>&#960; &middot; r<sup>2</sup></h2>
+            
+            <canvas id="gl-canvas" width="400" height="400" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
         </div>
@@ -89,8 +89,8 @@ main()
             <button class="btn" id= "xButton">Rotate X</button>
             <button class="btn" id= "yButton">Rotate Y</button>
             <button class="btn" id= "zButton">Rotate Z</button>
-            <button class="btn" id = "Pause">Pause/Restart</button>
-            <a href="index.html"><button  class="btn">Go Back</button></a>
+            <button class="btnn" id= "pButton">Pause / Resume</button>
+            <a href="index.html"><button  class="btnn">Go Back</button></a>
         </div>
        
     </body>

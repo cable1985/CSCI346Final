@@ -1,5 +1,5 @@
 
-/**
+/** 
  * 
  * @author:  Edward Angel
  * Modified by Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
@@ -88,7 +88,7 @@ function genDeltoid() {
    
     var indices = [];
     //----------------------------inner solid-----------------------------------------------------------
-    for(var i = 0; i < 101;i++){
+    for(var i = 0; i < 100;i++){
         if(i%2===0){
             indices.push(i+2,i,100);
             indices.push(i+2,i+1,i);
@@ -101,7 +101,7 @@ function genDeltoid() {
     
     
     //----------------------------inner solid shape-----------------------------------------------------------
-    for(var i = 103; i < 201;i++){
+    for(var i = 103; i < 200;i++){
         if(i%2===0){
             indices.push(i+2,i,202);
             indices.push(i+2,i+1,i);

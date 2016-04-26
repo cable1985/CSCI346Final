@@ -1,18 +1,17 @@
 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <!--
    Author:  Edward Angel
    Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
    Source: Modification from Code supplement to textbook-->
 <html>
     <head>
-        <title>Deltoid</title>
+        <title>Flappy Bird</title>
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        
+        <link rel="stylesheet" type="text/css" href="newstylesheet.css">
         
 <script id="vertex-shader" type="x-shader/x-vertex">
     
@@ -70,17 +69,16 @@ main()
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/initShaders.js"></script>
         <script type="text/javascript" src="http://arden.cs.unca.edu/~cameron/Angel/SourceCode/Common/MV.js"></script>
         
-        <script type="text/javascript" src="Deltoid.js"></script>
+        <script type="text/javascript" src="flappyBird.js"></script>
 
 
     </head>
     <body onload="canvasMain()"> 
         <div>
             
-            <h1>Deltoid</h1>
-            <h2>x = 2acos(theta) + acos(2theta)</h2>
-            <h2>y = 2asin(theta) - asin(2theta)</h2>
-          
+            <h1>Flappybird</h1>
+            
+            <h4>Creator and Developer: Nguyễn Hà Đông (Dong Nguyen)</h4>
             <canvas id="gl-canvas" width="512" height="512" >
                 oops ... your browser doesn't support the HTML5 canvas element
             </canvas>            
@@ -89,9 +87,8 @@ main()
             <button class="btn" id= "xButton">Rotate X</button>
             <button class="btn" id= "yButton">Rotate Y</button>
             <button class="btn" id= "zButton">Rotate Z</button>
-            <button class="btn" id = "Pause">Pause/Restart</button>
-            <a href="index.html"><button  class="btn">Go Back</button></a>
-            
+            <button class="btnn" id = "Pause">Pause/Restart</button>
+            <a href="index.html"><button  class="btnn">Go Back</button></a>
         </div>
        
     </body>

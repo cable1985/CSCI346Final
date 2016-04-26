@@ -1,5 +1,5 @@
 
-/**
+/** 
  * 
  * @author:  Edward Angel
  * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
@@ -13,7 +13,7 @@ var gl;
 var xAxis = 0; //used as a subscript in theta array
 var yAxis = 1; //used as a subscript in theta array
 var zAxis = 2; //used as a subscript in theta array
-var n = 100, m =100;
+var n = 150, m =150;
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
 var thetaLoc;

@@ -1,22 +1,25 @@
 
-/**
+/** 
  * 
  * @author:  Edward Angel
  * Modified by Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Clarke
  * Last Modified: 04-23-2016
  * 
- * Draws a Cylinder on screen with blended colors. Changing the radius
+ * Draws a Cone on screen with blended colors. Changing the radius
  * makes different shapes, like regular cylinders or pure cones.
  */
 
 var gl;
+
 var xAxis = 0; //used as a subscript in theta array
 var yAxis = 1; //used as a subscript in theta array
 var zAxis = 2; //used as a subscript in theta array
 var pauseAxis = 3;
 var flag = true;
+
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
+
 var thetaLoc;
 var elementCount; //number of indices
 
@@ -44,12 +47,12 @@ function canvasMain() {
         axis = yAxis;
     };
     document.getElementById( "zButton" ).onclick = function () {
-        axis = zAxis;
+        axis = zAxis;   
     };
     document.getElementById( "pButton" ).onclick = function () {
         axis = pauseAxis;   
     };
-    document.getElementById("pButton").onclick = function(){flag = !flag;};
+    document.getElementById("pButton").onclick = function(){flag = !flag;};    
 
     drawObject(gl, program, cylinder, axis);
 }//CanvasMain
@@ -63,57 +66,46 @@ function canvasMain() {
  */
 function generateCylinder() {
 
-    var radius = 0.4;    //sets desired radius size  
+    var radius = 0.5;    //sets desired radius size  
     
-    var vertices = [];  //generate vertices
+    // generate vertices
+    var vertices = [];
     
-    //left circle face
-    var inc = 2*Math.PI / 40;
+    //circle face
+    var inc = 2*Math.PI / 100;
     for (var theta = 0; theta < 2*Math.PI; theta += inc){
-        vertices.push(vec4(radius * Math.cos(theta), radius * Math.sin(theta), -0.8, 1));
+        vertices.push(vec4(0.5*Math.cos(theta), 0.5* Math.sin(theta), -0.8, 1));
     }
+    // middle of circle
     vertices.push(vec4(0, 0, -0.7, 1)); // center point #40
+    //middle of circle at opposite end to create cone
+    vertices.push(vec4(0, 0, 0.7, 1)); // center point #41
+   var last = vertices.length-1;
+   
+//generate indices
+    var indices = [];
     
-    //right circle face - use "radius" for cylinder, or set change it to 0 for cone    
-    for (var theta = 0; theta < 2*Math.PI; theta += inc){
-        vertices.push(vec4(radius * Math.cos(theta), radius * Math.sin(theta), 0.8, 1));
+    for (var i = 0; i < last-1; i++) {
+        indices.push(i, last-1, i+1);
     }
-    vertices.push(vec4(0, 0, 0.7, 1)); // center point #81
-
-    var indices = []; //generate indices
+    indices.push(last-2, 1, last-1);
     
-    //left face incices
-    for (var i = 0; i < 40; i++) {
-        indices.push(i, 40, i+1);
+    
+    for (var i = 0; i < last; i++) {
+        if(i !== last-2){
+         indices.push(i+1, last, i);
+        }
     }
-    indices.push(39, 40, 0);
+    indices.push(last-2,1,last);
     
-    //right face indices
-    for (var i = 41; i < 81; i++) {
-        indices.push(i, 81, i+1);
+    //generate colors (used colors from previous assignment)
+    var colors = [];
+    for (var i = 0; i < vertices.length; i++) {
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
+        colors.push(vec4(Math.random(), Math.random(), Math.random(), 1));
     }
-    indices.push(80, 81, 41);
     
-    //sides originating from left circle face
-    for (var i = 0; i < 39; i++) {
-        indices.push(i, i+1, i+41);
-    }
-    indices.push(0, 39, 80);
-    
-    //sides originating from right circle face
-    for (var i = 41; i < 81; i++) {
-        indices.push(i, i+1, i-40);
-    }
-    indices.push(41, 80, 0);
-    
-    var colors = []; //generate colors
-    
-    for (var i = 0; i < 80; i++) {
-        colors.push(vec4(0, Math.random()*.9, 0, 1));
-        colors.push(vec4(0, Math.random(), Math.random(), 1));
-        colors.push(vec4(Math.random()*.9, 0, Math.random()*.9, 1));
-    }
-    console.log(vertices);
 
     //example of an object in java script 
     var cylinder = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
@@ -164,6 +156,7 @@ function drawObject(gl, program, obj, viewAxis) {
     axis = viewAxis;
     elementCount = obj.indices.length;
     
+    
     render();
    
 }//drawObject
@@ -173,10 +166,10 @@ function render()
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
     if(flag) theta[axis] += 0.5; // rotate the axis by desired degrees
-    
+
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
-    gl.drawElements(gl.TRIANGLES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-
+    gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
+    
     requestAnimFrame( render );  
 }

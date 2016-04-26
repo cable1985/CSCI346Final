@@ -1,5 +1,5 @@
 
-/**
+/** 
  * 
  * @author:  Edward Angel
  * Modified by: Marietta E. Cameron, David Cable, partner Justin Blankenship, Lucas Clarke
@@ -10,7 +10,7 @@ var gl;
 var xAxis = 0; //used as a subscript in theta array
 var yAxis = 1; //used as a subscript in theta array
 var zAxis = 2; //used as a subscript in theta array
-var n = 100, m =100;
+var n = 150, m =150;
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
 var thetaLoc;
@@ -65,7 +65,8 @@ function generateShape() {
             var z = (1.6 * j / m) - .8;
             var b = (6 * j / m) - 3;
             var a = (6 * i / n) - 3;
-            vertices.push(vec4(x, 0.5*Math.sin((a*a) + (b*b))/((a*a)+(b*b)), z, 1));
+            vertices.push(vec4(x, 0.4*(Math.sin(Math.pow(a,2) + Math.pow(b,2))/(Math.pow(a,2)+Math.pow(b,2))), z, 1));
+        //https://www.packtpub.com/books/content/visualizations-made-easy-gnuplot
         }
     }
 

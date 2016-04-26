@@ -1,6 +1,6 @@
 
 /**
- * 
+ *  
  * @author:  Edward Angel
  * Modified by Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Clark
  * Last Modified: 02-26-2016
@@ -155,32 +155,14 @@ function generateCube() {
     ];
     
     
-    var colors = [
-        vec4(0, 0, 1, 1),  //0
-        vec4(0, 0, 0, 1),  //1
-        vec4(0, 1, 1, 1),  //2
-        vec4(0, 1, 0, 1),  //3
-        vec4(0, 0, 1, 1),  //4
-        vec4(0, 0, 0, 1),  //5
-        vec4(0, 1, 1, 1),  //6
-        vec4(0, 1, 0, 1),  //7
-        vec4(0, 0, 1, 1),  //8
-        vec4(0, 0, 0, 1),  //9
-        vec4(0, 1, 1, 1),  //10
-        vec4(0, 1, 0, 1),  //11
-        vec4(1, 0, 1, 1),  //12
-        vec4(1, 0, 0, 1),  //13
-        vec4(1, 1, 1, 1),  //14
-        vec4(1, 1, 0, 1),  //15
-        vec4(1, 0, 1, 1),  //16
-        vec4(1, 0, 0, 1),  //17
-        vec4(1, 1, 1, 1),  //18
-        vec4(1, 1, 0, 1),  //19
-        vec4(1, 0, 1, 1),  //20
-        vec4(1, 0, 0, 1),  //21
-        vec4(1, 1, 1, 1),  //22
-        vec4(1, 1, 0, 1)];  //23
+    var colors = [];
+    for (var i = 0; i < vertices.length; i++) {
+        colors.push(vec4(Math.random()*0.8, Math.random(), Math.random(), 1));
+        colors.push(vec4(Math.random() * .64,Math.random(), Math.random()*.5, 1));
+        colors.push(vec4(Math.random() * .34, Math.random(), Math.random(), 1));
 
+    }
+    
     //example of an object in java script 
     var cube = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 

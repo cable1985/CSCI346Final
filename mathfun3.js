@@ -1,17 +1,19 @@
 
 /**
- * 
+ *  
  * @author:  Edward Angel
- * Modified by: Marietta E. Cameron, David Cable, Justin Blankenship, Lucas Clarke
+ * Modified by Marietta E. Cameron, Justin Blankenship, David Cable, Lucas Clarke
+ * Last Modified: 04-23-2016
  * 
+ * Draws small mountains shapes using a mathematical surface function.
  */
-var flag= true;
-var draw;
 var gl;
-var xAxis = 0; //used as a subscript in theta array
-var yAxis = 1; //used as a subscript in theta array
-var zAxis = 2; //used as a subscript in theta array
-var n = 150, m =150;
+var xAxis = 0; 
+var yAxis = 1; 
+var zAxis = 2;
+var pauseAxis = 3;
+var n = 50, m = 50;
+var flag = true;
 var axis = 0;
 var theta = [0, 0, 0]; //rotation angle about x, y, z 
 var thetaLoc;
@@ -36,67 +38,72 @@ function canvasMain() {
 
     //event listeners for buttons    
     document.getElementById("xButton").onclick = function () {
-        axis = xAxis;
-
+        axis = xAxis;        
     };
     document.getElementById("yButton").onclick = function () {
-        axis = yAxis;
-
+        axis = yAxis;        
     };
     document.getElementById("zButton").onclick = function () {
-        axis = zAxis;
-
+        axis = zAxis;        
     };
-    
-    document.getElementById("Pause").onclick = function(){flag = !flag;};
-    
-      
-        drawShape(gl, program, shape, axis);
- }
+    document.getElementById("pButton").onclick = function () {
+        axis = pauseAxis;        
+    };
+    document.getElementById("pButton").onclick = function(){flag = !flag;}; 
 
-    
+    drawShape(gl, program, shape, axis);
+}//CanvasMain
+
 
 function generateShape() {
-   
+
     var vertices = [];
     for (var i = 0; i < n + 1; i++) {
         for (var j = 0; j < m + 1; j++) {
-            var x = (1.6 * i / n) - .8;
+            var x = (1.6 * i / n) -.8;
             var z = (1.6 * j / m) - .8;
             var b = (6 * j / m) - 3;
             var a = (6 * i / n) - 3;
-            vertices.push(vec4(x, .3*(Math.sin(Math.pow(a,2))*Math.cos(Math.pow(b,2))), z, 1));
-            //f(x, y) = sin(x^2) * cos(y^2) https://en.wikipedia.org/wiki/Graph_of_a_function
+            vertices.push(vec4(x, surface(a,b), z, 1));
         }
     }
-
-    var what = (n + 1) * m;
+    
+    var what = (n+1) * m;
     var indices = [];
     for (var i = 0; i < what - 1; i++) {
-        if (i % (n + 1) !== n) {
+        if(i%(n+1)!==n){
             indices.push(i, i + 1, i + (m + 2), i, i + (m + 2), i + (m + 1));
         }
     }
 
     var colors = [];
-    for (var i = 0; i < what; i++) {
-        colors.push(vec4(0.8, .6, 0, 1));
-        colors.push(vec4(Math.random() * .64, 0, Math.random(), 1));
-        colors.push(vec4(Math.random() * .34, .63, Math.random() * 8, 1));
-
+    for (var i = 0; i < what -1 + 1; i++) {
+        colors.push(vec4(0, Math.random()*.9, .5, 1));
+        colors.push(vec4(0, Math.random(), Math.random()*.4, 1));
+        colors.push(vec4(Math.random()*.9, .5, Math.random()*.9, 1));
+         
     }
-    
+
     var shape = {vertices: vertices, indices: indices, colors: colors, primtype: gl.TRIANGLES};
 
 
     return shape;
 }
 
+//function that creates a hill
+//http://wwwf.imperial.ac.uk/metric/metric_public/glossary/glossary.html
+function surface(t, u) {
+    var xSqrd = Math.pow(t, 2);
+    var zSqrd = Math.pow(u, 2);
+    var e = (Math.pow(Math.E, (-xSqrd-zSqrd)));
+    return (xSqrd - zSqrd) * e;   
+}
+
 
 function drawShape(gl, program, obj, viewAxis) {
-    
-    //Background 
-    gl.clearColor(0.0, 0.0, 0.0, 0.0);
+
+    // clear the background (with black)
+    gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -132,9 +139,7 @@ function drawShape(gl, program, obj, viewAxis) {
 
     thetaLoc = gl.getUniformLocation(program, "theta");
     axis = viewAxis;
-    elementCount = obj.indices.length/2;
-    elementCount2 = obj.indices.length;
-    
+    elementCount = obj.indices.length;
 
     render();
 
@@ -143,11 +148,12 @@ function drawShape(gl, program, obj, viewAxis) {
 function render()
 {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    if(flag) theta[axis] += 0.5; // rotate the axis by desired degrees
     
-    if(flag) theta[axis] += 0.5;
     gl.uniform3fv(thetaLoc, theta); //find theta in html  and set it
 
     gl.drawElements(gl.LINES, elementCount, gl.UNSIGNED_SHORT, 0);  //draw elements  ... elementCount number of indices  
-    gl.drawElements(gl.POINTS, elementCount2, gl.UNSIGNED_SHORT, 0);
+
     requestAnimFrame(render);
 }
